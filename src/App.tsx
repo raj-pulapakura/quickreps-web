@@ -23,7 +23,7 @@ function App() {
         />
       ) : routine && isPlayingRoutine ? (
         <RoutineUI
-          flattenedRoutine={flattenRoutine(routine).slice(0, 1)}
+          flattenedRoutine={flattenRoutine(routine)}
           setIsCompletedRoutine={setIsCompletedRoutine}
         />
       ) : (
