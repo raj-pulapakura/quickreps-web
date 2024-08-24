@@ -20,14 +20,16 @@ export default function RoutineUI({
 
     const currentExercise = flattenedRoutine[currentExerciseIndex];
 
+    // Start countdown
     setCountdown(currentExercise.durationInSeconds);
-
+    // Decrease countdown every second
     const interval = setInterval(() => {
       setCountdown((prevCountdown) => prevCountdown - 1);
     }, 1000);
 
+    // Move to next exercise after durationInSeconds
     setTimeout(() => {
-      clearInterval(interval);
+      clearInterval(interval); // Clear previous interval
       setCurrentExerciseIndex(currentExerciseIndex + 1);
     }, currentExercise.durationInSeconds * 1000);
   }, [currentExerciseIndex]);

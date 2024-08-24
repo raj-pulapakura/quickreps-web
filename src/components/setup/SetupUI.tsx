@@ -72,10 +72,14 @@ export default function SetupUI({
           className={`bg-primary text-background rounded-lg p-3 mx-auto my-16 disabled:bg-gray-800 ${
             isGenerating ? 'w-[50px] h-[50px] animate-spin' : 'w-full'
           }`}
-          whileHover={{
-            scale: 1.05,
-            transition: { duration: 0.25 },
-          }}
+          whileHover={
+            isGenerating
+              ? {}
+              : {
+                  scale: 1.05,
+                  transition: { duration: 0.25 },
+                }
+          }
           layout
           onClick={generateRoutine}
           disabled={isGenerating || !selectedDuration}
