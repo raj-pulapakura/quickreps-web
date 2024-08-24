@@ -1,24 +1,38 @@
 import { Routine } from '../../../types/app/routine';
 import RoutineSectionHeader from './RoutineSectionHeader';
-import RoutineItem from './RoutineItem';
+import RoutineItem from './RoutineSectionItem';
+import RoutineSection from './RoutineSection';
+import RoutineSectionList from './RoutineSectionList';
 
 export default function RoutineList({ routine }: { routine: Routine }) {
   return (
-    <div>
-      <RoutineSectionHeader title="Warmup" />
-      {routine.warmup.map((exercise) => (
-        <RoutineItem exercise={exercise} />
-      ))}
+    <div className="flex flex-col gap-8">
+      <RoutineSection>
+        <RoutineSectionHeader title="Warmup" />
+        <RoutineSectionList>
+          {routine.warmup.map((exercise) => (
+            <RoutineItem exercise={exercise} />
+          ))}
+        </RoutineSectionList>
+      </RoutineSection>
 
-      <RoutineSectionHeader title="Workout" />
-      {routine.workout.map((exercise) => (
-        <RoutineItem exercise={exercise} />
-      ))}
+      <RoutineSection>
+        <RoutineSectionHeader title="Workout" />
+        <RoutineSectionList>
+          {routine.workout.map((exercise) => (
+            <RoutineItem exercise={exercise} />
+          ))}
+        </RoutineSectionList>
+      </RoutineSection>
 
-      <RoutineSectionHeader title="Cooldown" />
-      {routine.cooldown.map((exercise) => (
-        <RoutineItem exercise={exercise} />
-      ))}
+      <RoutineSection>
+        <RoutineSectionHeader title="Cooldown" />
+        <RoutineSectionList>
+          {routine.cooldown.map((exercise) => (
+            <RoutineItem exercise={exercise} />
+          ))}
+        </RoutineSectionList>
+      </RoutineSection>
     </div>
   );
 }

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Routine } from '../../types/app/routine';
-import DurationsOptions from './components/SelectDuration';
 import SelectDuration from './components/SelectDuration';
 import RoutineList from './components/RoutineList';
+import { motion } from 'framer-motion';
+import AnimatedPageContainer from '../shared/AnimatedPageContainer';
 
 const routineDurations = [2, 5, 10, 15];
 
@@ -20,6 +21,8 @@ export default function SetupUI({
 
   async function generateRoutine() {
     setIsGenerating(true);
+    setRoutine(null);
+
     try {
       const requestBody = {
         durationInMinutes: selectedDuration,
@@ -34,9 +37,6 @@ export default function SetupUI({
       );
 
       const routine = (await response.json()) as Routine;
-
-      console.log('Recevied routine:');
-      console.log(routine);
 
       // Validate that routine has all required fields
       if (
@@ -56,7 +56,7 @@ export default function SetupUI({
   }
 
   return (
-    <div>
+    <AnimatedPageContainer>
       <h1 className="font-bold text-3xl text-primary text-center">
         Exercise Snack
       </h1>
@@ -67,25 +67,34 @@ export default function SetupUI({
         setSelectedDuration={setSelectedDuration}
       />
 
-      <button
-        className={`bg-primary text-background w-full mt-16 rounded p-3 disabled:bg-gray-800`}
-        onClick={generateRoutine}
-        disabled={isGenerating || !selectedDuration}
-      >
-        {isGenerating ? 'Generating...' : routine ? 'Regenerate' : 'Generate'}
-      </button>
+      <div className="flex">
+        <motion.button
+          className={`bg-primary text-background rounded-lg p-3 mx-auto my-16 disabled:bg-gray-800 ${
+            isGenerating ? 'w-[50px] h-[50px] animate-spin' : 'w-full'
+          }`}
+          whileHover={{
+            scale: 1.05,
+            transition: { duration: 0.25 },
+          }}
+          layout
+          onClick={generateRoutine}
+          disabled={isGenerating || !selectedDuration}
+        >
+          {isGenerating ? '' : routine ? 'Regenerate' : 'Generate'}
+        </motion.button>
+      </div>
 
       {routine && <RoutineList routine={routine} />}
 
       {routine && (
         <button
-          className={`bg-primary text-background rounded p-3 mt-10 w-full mb-32`}
+          className={`bg-primary text-background w-full rounded-lg p-3 mt-16  mb-32`}
           onClick={() => setIsPlayingRoutine(true)}
           disabled={isGenerating || !selectedDuration}
         >
           Start
         </button>
       )}
-    </div>
+    </AnimatedPageContainer>
   );
 }

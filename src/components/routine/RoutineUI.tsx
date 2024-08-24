@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { FlattenedRoutine } from '../../types/app/flattenedRoutine';
 import Timer from './components/Timer';
 import NextExercise from './components/NextExercise';
+import AnimatedPageContainer from '../shared/AnimatedPageContainer';
 
 export default function RoutineUI({
   flattenedRoutine,
@@ -32,7 +33,7 @@ export default function RoutineUI({
   }, [currentExerciseIndex]);
 
   return (
-    <div>
+    <AnimatedPageContainer>
       <Timer
         totalTime={flattenedRoutine[currentExerciseIndex].durationInSeconds}
         remainingTime={countdown}
@@ -48,6 +49,6 @@ export default function RoutineUI({
       {currentExerciseIndex < flattenedRoutine.length - 1 && (
         <NextExercise exercise={flattenedRoutine[currentExerciseIndex + 1]} />
       )}
-    </div>
+    </AnimatedPageContainer>
   );
 }
