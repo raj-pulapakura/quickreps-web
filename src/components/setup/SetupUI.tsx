@@ -4,6 +4,7 @@ import SelectDuration from './components/SelectDuration';
 import RoutineList from './components/RoutineList';
 import { motion } from 'framer-motion';
 import AnimatedPageContainer from '../shared/AnimatedPageContainer';
+import { useSnackbar } from 'notistack';
 
 const routineDurations = [2, 5, 10, 15];
 
@@ -18,6 +19,8 @@ export default function SetupUI({
 }) {
   const [isGenerating, setIsGenerating] = useState(false);
   const [selectedDuration, setSelectedDuration] = useState<number | null>(null);
+
+  const { enqueueSnackbar } = useSnackbar();
 
   async function generateRoutine() {
     setIsGenerating(true);
@@ -50,16 +53,22 @@ export default function SetupUI({
 
       setRoutine(routine);
     } catch (error) {
-      console.error(error);
+      enqueueSnackbar(
+        'It seems there was an error generating the routine. Please try again.',
+        { variant: 'error', autoHideDuration: 5000 }
+      );
     }
     setIsGenerating(false);
   }
 
   return (
     <AnimatedPageContainer>
-      <h1 className="font-bold text-3xl text-primary text-center">
-        Exercise Snack
-      </h1>
+      <div className="flex items-center gap-4 justify-center">
+        <img src="/images/logo.png" />
+        <h1 className="font-bold text-7xl uppercase italic text-wrap text-primary text-center">
+          QUICKREPS
+        </h1>
+      </div>
 
       <SelectDuration
         durationOptions={routineDurations}

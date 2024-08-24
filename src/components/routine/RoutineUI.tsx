@@ -38,7 +38,7 @@ export default function RoutineUI({
 
   return (
     <AnimatedPageContainer>
-      {currentExerciseIndex < flattenedRoutine.length - 1 && (
+      {currentExerciseIndex < flattenedRoutine.length && (
         <>
           <Timer
             totalTime={flattenedRoutine[currentExerciseIndex].durationInSeconds}

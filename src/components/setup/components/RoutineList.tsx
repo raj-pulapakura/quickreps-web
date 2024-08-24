@@ -10,8 +10,8 @@ export default function RoutineList({ routine }: { routine: Routine }) {
       <RoutineSection>
         <RoutineSectionHeader title="Warmup" />
         <RoutineSectionList>
-          {routine.warmup.map((exercise) => (
-            <RoutineItem exercise={exercise} />
+          {routine.warmup.map((exercise, index) => (
+            <RoutineItem key={index} exercise={exercise} />
           ))}
         </RoutineSectionList>
       </RoutineSection>
@@ -19,8 +19,8 @@ export default function RoutineList({ routine }: { routine: Routine }) {
       <RoutineSection>
         <RoutineSectionHeader title="Workout" />
         <RoutineSectionList>
-          {routine.workout.map((exercise) => (
-            <RoutineItem exercise={exercise} />
+          {routine.workout.map((exercise, index) => (
+            <RoutineItem key={index} exercise={exercise} />
           ))}
         </RoutineSectionList>
       </RoutineSection>
@@ -28,8 +28,8 @@ export default function RoutineList({ routine }: { routine: Routine }) {
       <RoutineSection>
         <RoutineSectionHeader title="Cooldown" />
         <RoutineSectionList>
-          {routine.cooldown.map((exercise) => (
-            <RoutineItem exercise={exercise} />
+          {routine.cooldown.map((exercise, index) => (
+            <RoutineItem key={index} exercise={exercise} />
           ))}
         </RoutineSectionList>
       </RoutineSection>
