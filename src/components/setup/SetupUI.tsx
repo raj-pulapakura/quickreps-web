@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { Routine } from '../../types/app/routine';
+import DurationsOptions from './components/SelectDuration';
+import SelectDuration from './components/SelectDuration';
+import RoutineList from './components/RoutineList';
 
 const routineDurations = [2, 5, 10, 15];
 
@@ -54,59 +57,34 @@ export default function SetupUI({
 
   return (
     <div>
-      {routineDurations.map((duration) => (
-        <button
-          key={duration}
-          className={`${
-            duration === selectedDuration ? 'bg-gray-500' : 'bg-gray-300'
-          } mr-3`}
-          onClick={() => setSelectedDuration(duration)}
-        >
-          {duration} minutes
-        </button>
-      ))}
+      <h1 className="font-bold text-3xl text-primary text-center">
+        Exercise Snack
+      </h1>
+
+      <SelectDuration
+        durationOptions={routineDurations}
+        selectedDuration={selectedDuration}
+        setSelectedDuration={setSelectedDuration}
+      />
 
       <button
-        className="bg-blue-500"
+        className={`bg-primary text-background w-full mt-16 rounded p-3 disabled:bg-gray-800`}
         onClick={generateRoutine}
-        disabled={isGenerating}
+        disabled={isGenerating || !selectedDuration}
       >
-        {routine ? 'Regenerate' : 'Generate'}
+        {isGenerating ? 'Generating...' : routine ? 'Regenerate' : 'Generate'}
       </button>
 
-      {isGenerating && <div>Generating...</div>}
+      {routine && <RoutineList routine={routine} />}
 
       {routine && (
-        <button onClick={() => setIsPlayingRoutine(true)}>Start</button>
-      )}
-
-      {routine && (
-        <>
-          <h1>Warmup</h1>
-          {routine.warmup.map((exercise, index) => (
-            <div key={index}>
-              <h1>{exercise.exerciseName}</h1>
-              <p>{exercise.shortDescription}</p>
-              <p>{exercise.durationInSeconds} seconds</p>
-            </div>
-          ))}
-          <h1>Workout</h1>
-          {routine.workout.map((exercise, index) => (
-            <div key={index}>
-              <h1>{exercise.exerciseName}</h1>
-              <p>{exercise.shortDescription}</p>
-              <p>{exercise.durationInSeconds} seconds</p>
-            </div>
-          ))}
-          <h1>Cooldown</h1>
-          {routine.cooldown.map((exercise, index) => (
-            <div key={index}>
-              <h1>{exercise.exerciseName}</h1>
-              <p>{exercise.shortDescription}</p>
-              <p>{exercise.durationInSeconds} seconds</p>
-            </div>
-          ))}
-        </>
+        <button
+          className={`bg-primary text-background rounded p-3 mt-10 w-full mb-32`}
+          onClick={() => setIsPlayingRoutine(true)}
+          disabled={isGenerating || !selectedDuration}
+        >
+          Start
+        </button>
       )}
     </div>
   );

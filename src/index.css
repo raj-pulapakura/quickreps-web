@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+  font-family: Kanit;
+  color: white;
+}
+
+body {
+  background-color: #020617;
+}
