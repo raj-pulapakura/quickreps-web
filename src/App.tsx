@@ -4,15 +4,28 @@ import { Routine } from './types/app/routine';
 import RoutineUI from './components/routine/RoutineUI';
 import SetupUI from './components/setup/SetupUI';
 import { flattenRoutine } from './utils/flattenRoutine';
+import FinishUI from './components/finish/FinishUI';
 
 function App() {
   const [routine, setRoutine] = useState<Routine | null>(null);
   const [isPlayingRoutine, setIsPlayingRoutine] = useState(false);
+  const [isCompletedRoutine, setIsCompletedRoutine] = useState(false);
 
   return (
     <AppContainer>
-      {routine && isPlayingRoutine ? (
-        <RoutineUI flattenedRoutine={flattenRoutine(routine)} />
+      {isCompletedRoutine ? (
+        <FinishUI
+          resetState={() => {
+            setRoutine(null);
+            setIsPlayingRoutine(false);
+            setIsCompletedRoutine(false);
+          }}
+        />
+      ) : routine && isPlayingRoutine ? (
+        <RoutineUI
+          flattenedRoutine={flattenRoutine(routine).slice(0, 3)}
+          setIsCompletedRoutine={setIsCompletedRoutine}
+        />
       ) : (
         <SetupUI
           routine={routine}

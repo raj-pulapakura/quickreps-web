@@ -6,15 +6,17 @@ import AnimatedPageContainer from '../shared/AnimatedPageContainer';
 
 export default function RoutineUI({
   flattenedRoutine,
+  setIsCompletedRoutine,
 }: {
   flattenedRoutine: FlattenedRoutine;
+  setIsCompletedRoutine: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
   const [countdown, setCountdown] = useState(0);
 
   useEffect(() => {
     if (currentExerciseIndex >= flattenedRoutine.length) {
-      console.log('Routine finished');
+      setIsCompletedRoutine(true);
       return;
     }
 
@@ -36,20 +38,26 @@ export default function RoutineUI({
 
   return (
     <AnimatedPageContainer>
-      <Timer
-        totalTime={flattenedRoutine[currentExerciseIndex].durationInSeconds}
-        remainingTime={countdown}
-      />
-      <p className="text-center text-5xl mt-5">
-        {flattenedRoutine[currentExerciseIndex].exerciseName}
-      </p>
-
-      <p className="text-center text-2xl text-gray-500 mt-5">
-        {flattenedRoutine[currentExerciseIndex].shortDescription}
-      </p>
-
       {currentExerciseIndex < flattenedRoutine.length - 1 && (
-        <NextExercise exercise={flattenedRoutine[currentExerciseIndex + 1]} />
+        <>
+          <Timer
+            totalTime={flattenedRoutine[currentExerciseIndex].durationInSeconds}
+            remainingTime={countdown}
+          />
+          <p className="text-center text-5xl mt-5">
+            {flattenedRoutine[currentExerciseIndex].exerciseName}
+          </p>
+
+          <p className="text-center text-2xl text-gray-500 mt-5">
+            {flattenedRoutine[currentExerciseIndex].shortDescription}
+          </p>
+
+          {currentExerciseIndex < flattenedRoutine.length - 1 && (
+            <NextExercise
+              exercise={flattenedRoutine[currentExerciseIndex + 1]}
+            />
+          )}
+        </>
       )}
     </AnimatedPageContainer>
   );

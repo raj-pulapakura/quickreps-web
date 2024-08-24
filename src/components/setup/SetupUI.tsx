@@ -91,13 +91,14 @@ export default function SetupUI({
       {routine && <RoutineList routine={routine} />}
 
       {routine && (
-        <button
+        <motion.button
           className={`bg-primary text-background w-full rounded-lg p-3 mt-16  mb-32`}
           onClick={() => setIsPlayingRoutine(true)}
+          whileHover={{ scale: 1.05, transition: { duration: 0.25 } }}
           disabled={isGenerating || !selectedDuration}
         >
           Start
-        </button>
+        </motion.button>
       )}
     </AnimatedPageContainer>
   );
