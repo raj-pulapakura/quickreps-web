@@ -64,7 +64,7 @@ export default function SetupUI({
   return (
     <AnimatedPageContainer>
       <div className="flex items-center gap-4 justify-center">
-        <img src="/images/logo.png" />
+        <img src="/images/logo.png" alt="Logo" />
         <h1 className="font-bold text-7xl uppercase italic text-wrap text-primary text-center">
           QUICKREPS
         </h1>

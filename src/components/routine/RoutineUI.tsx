@@ -34,7 +34,7 @@ export default function RoutineUI({
       clearInterval(interval); // Clear previous interval
       setCurrentExerciseIndex(currentExerciseIndex + 1);
     }, currentExercise.durationInSeconds * 1000);
-  }, [currentExerciseIndex]);
+  }, [currentExerciseIndex, flattenedRoutine, setIsCompletedRoutine]);
 
   return (
     <AnimatedPageContainer>
